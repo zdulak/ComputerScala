@@ -1,13 +1,23 @@
 package computer.presentation
 
+import computer.core.{Board, Computer}
 import scopt.OParser
+
 import java.io.File
+import scala.io.Source
+import scala.util.Using
 
 object Main {
   def main(args: Array[String]): Unit = {
     OParser.parse(getParser, args, Config()) match {
-      case Some(config) => ???
-      case None =>
+      case Some(config) => {
+        val commands = Using(Source.fromFile(config.fileName)) {
+          source => source.getLines().toSeq
+        }.getOrElse(Seq.empty[String])
+
+        new Computer(new Board(config.rowSize, config.colSize), commands).run()
+      }
+      case None => println("Invalid configuration")
     }
   }
 

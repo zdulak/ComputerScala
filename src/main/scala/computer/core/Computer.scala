@@ -1,5 +1,6 @@
 package computer.core
 
-class Computer {
+class Computer(board: Board, commands: Seq[String]) {
+  def run(): Unit = ???
 
 }
