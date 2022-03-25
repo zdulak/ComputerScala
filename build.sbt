@@ -6,3 +6,5 @@ lazy val root = (project in file("."))
   .settings(
     name := "ComputerScala"
   )
+
+libraryDependencies += "com.github.scopt" %% "scopt" % "4.0.1"
