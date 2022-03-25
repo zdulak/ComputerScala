@@ -2,7 +2,6 @@ package computer.presentation
 
 import computer.core.{Board, Computer}
 import scopt.OParser
-
 import java.io.File
 import scala.io.Source
 import scala.util.Using

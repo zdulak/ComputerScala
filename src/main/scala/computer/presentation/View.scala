@@ -1,5 +1,7 @@
 package computer.presentation
 
-object View {
+import computer.core.View
+
+object View extends View {
 
 }
