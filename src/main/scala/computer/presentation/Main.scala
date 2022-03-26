@@ -1,6 +1,6 @@
 package computer.presentation
 
-import computer.core.{Board, Computer}
+import computer.core.{DefaultBoard, Computer}
 import scopt.OParser
 import java.io.File
 import scala.io.Source
@@ -12,9 +12,12 @@ object Main {
       case Some(config) => {
         val commands = Using(Source.fromFile(config.fileName)) {
           source => source.getLines().toSeq
-        }.getOrElse(Seq.empty[String])
+        }.getOrElse {
+          println("Invalid file")
+          Seq.empty[String]
+        }
 
-        new Computer(new Board(config.rowSize, config.colSize), commands).run()
+        new Computer(ConsoleView).run(new DefaultBoard(config.rowSize, config.colSize), commands)
       }
       case None => println("Invalid configuration")
     }
@@ -46,5 +49,4 @@ object Main {
     }
     parser
   }
-
 }
