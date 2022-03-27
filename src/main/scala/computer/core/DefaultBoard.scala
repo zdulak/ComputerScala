@@ -58,8 +58,10 @@ class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {
     }
   }
 
-  def rotate(id: Int, angle: Int): Either[String, Board] = ???
-
-  //  def existsId(id: Int): Boolean = _slots.exists(_.exists(hasId(_, id)))
-  //        else Left ("The target slot is already occupied")
+  def rotate(id: Int, angle: Int): Either[String, Board] = {
+    getArrow(id) match {
+      case None => Left("Arrow with the given id does not exist")
+      case Some((row, col, arrow)) => Right(mark(row, col, arrow.rotate(angle)))
+    }
+  }
 }
