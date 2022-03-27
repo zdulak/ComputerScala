@@ -1,8 +1,10 @@
 package computer.core
 
+import computer.core.slots.SlotUtilities.StringExtensions
 import computer.core.traits.{Board, View}
+
 import scala.annotation.tailrec
-import scala.util.{Try, Success, Failure}
+import scala.util.{Failure, Success, Try}
 
 class Computer(view: View) {
   @tailrec
@@ -22,7 +24,7 @@ class Computer(view: View) {
   def execute(board: Board, command: String): Either[String, Board] = {
     Try {
       command.toLowerCase match {
-        case s"create $kind $row $col $id" => board.create(kind, row.toInt, col.toInt, id.toInt)
+        case s"create $kind $row $col $id" => board.create(kind.toSlot, row.toInt, col.toInt, id.toInt)
         case s"rotate $id $angel" => board.rotate(id.toInt, angel.toInt)
         case s"move $id $step" => board.move(id.toInt, step.toInt)
         case _ => Left("Invalid command")

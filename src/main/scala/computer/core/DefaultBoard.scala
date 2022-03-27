@@ -1,5 +1,6 @@
 package computer.core
 
+import computer.core.slots.Slot
 import computer.core.traits.Board
 
 class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {
@@ -10,8 +11,21 @@ class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {
   def this(rowSize: Int, colSize: Int) = this(
     for (_ <- 0 until rowSize) yield for (_ <- 0 until colSize) yield Slot.Empty)
 
-  def create(kind: Slot, row: Int, col: Int, id: Int): Either[String, Board] = ???
+  def apply(row: Int, col: Int): Slot = _slots(row)(col)
+
+  def isSlotFull(row: Int, col: Int): Boolean = apply(row, col) != Slot.Empty
+
+  def exists(id: Int): Boolean = _slots.exists(_.exists())
+
+  def create(kind: Slot, row: Int, col: Int, id: Int): Either[String, Board] = {
+    if(row >= 0 && row < rowSize && col >= 0 && col < colSize){
+      if (isSlotFull())
+    }
+    else
+      Left("Invalid coordinates")
+  }
   def rotate(id: Int, angle: Int): Either[String, Board] = ???
   def move(id: Int, steps: Int): Either[String, Board] = ???
+
 
 }
