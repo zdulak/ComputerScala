@@ -1,6 +1,5 @@
 package computer.core
 
-import computer.core.slots.Slot
 import computer.core.traits.Board
 
 class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {

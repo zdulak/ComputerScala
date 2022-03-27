@@ -1,6 +1,6 @@
 package computer.core.traits
 
-import computer.core.slots.Slot
+import computer.core.Slot
 
 trait Board {
   val rowSize: Int

@@ -1,7 +1,7 @@
 package computer.core
 
-import computer.core.slots.SlotUtilities.StringExtensions
 import computer.core.traits.{Board, View}
+import computer.core.slots.Slot.StringExtensions
 
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}

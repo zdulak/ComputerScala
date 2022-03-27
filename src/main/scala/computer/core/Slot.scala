@@ -1,4 +1,4 @@
-package computer.core.slots
+package computer.core
 
 import scala.language.implicitConversions
 
@@ -10,6 +10,18 @@ object Slot {
   case object Left extends Slot('<')
   case object Right extends Slot('>')
   case object Empty extends Slot(' ')
+
+  implicit class StringExtensions(val str: String) {
+    def toSlot: Slot = {
+      str match {
+        case Slot.Up.sign.toString => Slot.Up
+        case Slot.Down.sign.toString => Slot.Down
+        case Slot.Left.sign.toString => Slot.Left
+        case Slot.Right.sign.toString => Slot.Right
+        case _ => throw new IllegalArgumentException("Invalid type of arrow")
+      }
+    }
+  }
 
 //  implicit def stringToSlot(str: String): Slot = {
 //    str match {
