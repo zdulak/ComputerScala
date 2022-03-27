@@ -42,7 +42,7 @@ object Main {
           .required()
           .validate(colSize =>
                       if (colSize > 0) success else failure("Number of columns must be a positive number"))
-          .action((colSize, config) => config.copy(rowSize = colSize))
+          .action((colSize, config) => config.copy(colSize = colSize))
           .text("Number of columns"),
         help("help").text("prints this usage text")
         )

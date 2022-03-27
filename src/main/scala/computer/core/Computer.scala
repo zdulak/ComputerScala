@@ -11,7 +11,10 @@ class Computer(view: View) {
     view.printBoard(board)
     if (commands.nonEmpty) {
       execute(board, commands.head) match {
-        case Right(newBoard) => run(newBoard, commands.tail)
+        case Right(newBoard) => {
+          view.printMsg(commands.head)
+          run(newBoard, commands.tail)
+        }
         case Left(msg) => {
           view.printMsg(msg)
           run(board, commands.tail)
