@@ -10,13 +10,10 @@ class Computer(view: View) {
   final def run(board: Board, commands: Seq[String]): Unit = {
     view.printBoard(board)
     if (commands.nonEmpty) {
+      view.printMsg(commands.head)
       execute(board, commands.head) match {
-        case Right(newBoard) => {
-          view.printMsg(commands.head)
-          run(newBoard, commands.tail)
-        }
+        case Right(newBoard) => run(newBoard, commands.tail)
         case Left(msg) => {
-          view.printMsg(commands.head)
           view.printMsg(msg)
           run(board, commands.tail)
         }
@@ -33,7 +30,7 @@ class Computer(view: View) {
         case _ => Left("Invalid command")
       }
     } match {
-      case Failure(exception) => Left(exception.getMessage)
+      case Failure(exception) => Left("Invalid command parameters")
       case Success(value) => value
     }
   }
