@@ -6,6 +6,7 @@ trait Board {
   val rowSize: Int
   val colSize: Int
 
+  def apply(row: Int): Seq[Slot]
   def apply(row: Int, col: Int): Slot
   def isSlotFull(row: Int, col: Int): Boolean
   def getArrow(id: Int): Option[(Int, Int, Arrow)]

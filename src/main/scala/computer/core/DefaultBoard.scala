@@ -11,6 +11,8 @@ class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {
   def this(rowSize: Int, colSize: Int) = this(
     for (_ <- 0 until rowSize) yield for (_ <- 0 until colSize) yield Slot.Empty)
 
+  def apply(row: Int): Seq[Slot] = _slots(row)
+
   def apply(row: Int, col: Int): Slot = _slots(row)(col)
 
   def isSlotFull(row: Int, col: Int): Boolean = apply(row, col) != Slot.Empty
