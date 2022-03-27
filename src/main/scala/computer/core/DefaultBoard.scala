@@ -33,9 +33,12 @@ class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {
   def unmark(row: Int, col: Int): Board = new DefaultBoard(
     _slots.updated(row, _slots(row).updated(col, Slot.Empty)))
 
-  def create(kind: Slot, row: Int, col: Int): Either[String, Board] = {
+  def create(kind: Arrow, row: Int, col: Int): Either[String, Board] = {
     if (row >= 0 && row < rowSize && col >= 0 && col < colSize) {
-      if (!isSlotFull(row, col)) Right(mark(row, col, kind)) else Left("The slot is full")
+      if (!isSlotFull(row, col)) {
+        if (getArrow(kind.id).isEmpty) Right(mark(row, col, kind)) else Left("The id is already used")
+      }
+      else Left("The slot is full")
     }
     else Left("Invalid coordinates")
   }
