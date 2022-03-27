@@ -9,7 +9,7 @@ object Arrow {
   case class Right(override val id: Int = 0) extends Arrow('>', id)
 
   implicit class StringExtensions(val str: String) {
-    def toArrow(id: Int): Slot = {
+    def toArrow(id: Int): Arrow = {
       str match {
         case _ if (str == Arrow.Up().sign.toString) => Arrow.Up(id)
         case _ if (str == Arrow.Down().sign.toString) => Arrow.Down(id)
