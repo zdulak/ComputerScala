@@ -1,6 +1,6 @@
 package computer.core.slots
 
-sealed abstract class Arrow(override val sign: Char, angle: Int, val id: Int) extends Slot(sign) {
+sealed abstract class Arrow(override val sign: Char, val angle: Int, val id: Int) extends Slot(sign) {
   def rotate(angle: Int): Arrow = ((this.angle + angle) % 360) match {
     case newAngle if (newAngle == Arrow.Up().angle) => Arrow.Up(id)
     case newAngle if (Math.abs(newAngle) == Arrow.Down().angle) => Arrow.Down(id)
