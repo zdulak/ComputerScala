@@ -40,6 +40,7 @@ class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {
     else Left("Invalid coordinates")
   }
 
+  //noinspection DuplicatedCode
   def move(id: Int, steps: Int): Either[String, Board] = {
     val fullTargetMsg = "The target slot is already occupied"
 
@@ -48,22 +49,29 @@ class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {
       case Some((row, col, arrow)) => Right {
         (arrow match {
           case arrow: Arrow.Up =>
-            if(!isSlotFull(row + steps, col)) mark(row + steps, col, arrow) else return Left(fullTargetMsg)
+            val newRow = (row + steps % rowSize) % rowSize
+            if(!isSlotFull(newRow, col)) mark(newRow, col, arrow) else return Left(fullTargetMsg)
           case arrow: Arrow.Down =>
-            if(!isSlotFull(row - steps, col)) mark(row - steps, col, arrow) else return Left(fullTargetMsg)
+            val newRow = (row - steps % rowSize) % rowSize
+            if(!isSlotFull(newRow, col)) mark(newRow, col, arrow) else return Left(fullTargetMsg)
           case arrow: Arrow.Left =>
-            if(!isSlotFull(row, col - steps)) mark(row, col - steps, arrow) else return Left(fullTargetMsg)
+            val newCol = (col - steps % colSize) % colSize
+            if(!isSlotFull(row, newCol)) mark(row, newCol, arrow) else return Left(fullTargetMsg)
           case arrow: Arrow.Right =>
-            if(!isSlotFull(row, col + steps)) mark(row, col + steps, arrow) else return Left(fullTargetMsg)
+            val newCol = (col + steps % colSize) % colSize
+            if(!isSlotFull(row, newCol)) mark(row, newCol, arrow) else return Left(fullTargetMsg)
         }).unmark(row, col)
       }
     }
   }
 
   def rotate(id: Int, angle: Int): Either[String, Board] = {
-    getArrow(id) match {
-      case None => Left("Arrow with the given id does not exist")
-      case Some((row, col, arrow)) => Right(mark(row, col, arrow.rotate(angle)))
+    if (!List(0, 90, 180, 270, 360).contains(Math.abs(angle))) Left("Invalid angle")
+    else {
+      getArrow(id) match {
+        case None => Left("Arrow with the given id does not exist")
+        case Some((row, col, arrow)) => Right(mark(row, col, arrow.rotate(angle)))
+      }
     }
   }
 }

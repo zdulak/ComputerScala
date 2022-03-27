@@ -16,6 +16,7 @@ class Computer(view: View) {
           run(newBoard, commands.tail)
         }
         case Left(msg) => {
+          view.printMsg(commands.head)
           view.printMsg(msg)
           run(board, commands.tail)
         }
