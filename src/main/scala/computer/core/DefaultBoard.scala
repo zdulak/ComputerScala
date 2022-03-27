@@ -1,5 +1,6 @@
 package computer.core
 
+import computer.core.slots.{Arrow, Slot}
 import computer.core.traits.Board
 
 class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {
@@ -14,9 +15,12 @@ class DefaultBoard(slots: IndexedSeq[IndexedSeq[Slot]]) extends Board {
 
   def isSlotFull(row: Int, col: Int): Boolean = apply(row, col) != Slot.Empty
 
-  def exists(id: Int): Boolean = _slots.exists(_.exists())
+  def existsId(id: Int): Boolean = _slots.exists(_.exists {
+    case arrow: Arrow => arrow.id == id
+    case _ => false
+  })
 
-  def create(kind: Slot, row: Int, col: Int, id: Int): Either[String, Board] = {
+  def create(kind: Slot, row: Int, col: Int): Either[String, Board] = {
     if(row >= 0 && row < rowSize && col >= 0 && col < colSize){
       if (isSlotFull())
     }
